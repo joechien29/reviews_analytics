@@ -11,12 +11,9 @@ with open("reviews.txt", "r") as f:
 print("檔案讀取完了，總共有", len(data), "筆資料")
 
 
-reviews_len = 0
-for i in range(0, len(data) - 1):
-	data_len = len(data[i]) # 每筆留言的長度
-	reviews_len = reviews_len + data_len # 加總留言長度
+sum_len = 0
+for d in data:
+	sum_len += len(d) # 加總每筆留言的長度
 
-# 平均留言長度
-aver_len = reviews_len / len(data)
-print("平均留言長度為: ", aver_len, "個字母")
+print("平均留言長度為: ", sum_len / len(data), "個字母")
 
