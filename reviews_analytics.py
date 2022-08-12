@@ -1,12 +1,15 @@
+import time
+import progressbar
+
+
 data = []
 count = 0
-
+bar = progressbar.ProgressBar(max_value=1000000)
 with open("reviews.txt", "r") as f:
     for line in f:
         data.append(line)
         count += 1
-        if count % 1000 == 0:
-            print(count)
+        bar.update(count)
 
 print("檔案讀取完了，總共有", len(data), "筆資料")
 
@@ -31,6 +34,7 @@ print("留言內容有good的資料一共有", len(good), "筆")
 print(good[0])
 
 #文字計數
+start_time = time.time()
 count_dict = {}
 for words in data:
     words_list = words.split()
@@ -40,17 +44,19 @@ for words in data:
         else:
             count_dict[word] = 1
 for word in count_dict:
-	if count_dict[word] > 1000000:
-	    print(word, count_dict[word])
-print(len(count_dict))
+    if count_dict[word] > 1000000:
+        print(word, count_dict[word])
+end_time = time.time()
+use_time = end_time - start_time
+print("計算時間為: ", use_time, "second")
 
 while True:
     word = input("請輸入你要查詢次數的文字: ")
     if word == "q":
         break
     elif word in count_dict:
-    	print(word, "出現過的次數為: ", count_dict[word])
+        print(word, "出現過的次數為: ", count_dict[word])
     else:
-    	print(word, "沒有出現在文章中")
+        print(word, "沒有出現在文章中")
 
 print("感謝使用本查詢系統")
